@@ -11,13 +11,18 @@ def main():
     print(f"Screen height: {SCREEN_HEIGHT}")
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    dt = 0
+    clock = pygame.time.Clock()
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:   #makes the window's close button work
                 return    
+        dt = clock.tick(60) / 1000
+        
         pygame.Surface.fill(screen, color='#000000') # black background
         pygame.display.flip()
+
 
 # ensures the main() function is only called when this file is run directly
 # won't run as a package
