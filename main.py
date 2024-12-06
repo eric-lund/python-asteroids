@@ -3,6 +3,7 @@
 # throughout this file
 import pygame
 from constants import *
+from player import Player
 
 def main():
     pygame.init  #initialize pygame
@@ -13,15 +14,21 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     dt = 0
     clock = pygame.time.Clock()
+    x = SCREEN_WIDTH / 2
+    y = SCREEN_HEIGHT / 2
+    player = Player(x, y)
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:   #makes the window's close button work
                 return    
         dt = clock.tick(60) / 1000
-        
+
         pygame.Surface.fill(screen, color='#000000') # black background
+        player.draw(screen)
         pygame.display.flip()
+
+
 
 
 # ensures the main() function is only called when this file is run directly
