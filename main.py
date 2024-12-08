@@ -4,6 +4,8 @@
 import pygame
 from constants import *
 from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 def main():
     pygame.init  #initialize pygame
@@ -20,12 +22,17 @@ def main():
     # Create groups
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
+    asteroidfield = pygame.sprite.Group()   
 
-    # Add static field to Player class
+    # Add static field to class
     Player.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (asteroidfield, updatable)
 
-    # Create Player objects after creating static
+    # Create objects after creating static field to inherit changes
     player = Player(x, y)
+    asteroidfield = AsteroidField()
 
     while True:
         for event in pygame.event.get():
@@ -34,8 +41,8 @@ def main():
         dt = clock.tick(60) / 1000
 
         pygame.Surface.fill(screen, color='#000000') # black background
-        # player.draw(screen)
-        # player.update(dt)
+        
+        # iterate over the groups instead of coding each class
         for draw in drawable:
             draw.draw(screen)
 
