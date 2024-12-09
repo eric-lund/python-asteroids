@@ -6,9 +6,10 @@ from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from shot import Shot
 
 def main():
-    pygame.init  #initialize pygame
+    pygame.init()  #initialize pygame
     print("Starting asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
@@ -20,15 +21,18 @@ def main():
     y = SCREEN_HEIGHT / 2
 
     # Create groups
-    updatable = pygame.sprite.Group()
+    updateable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
-    asteroidfield = pygame.sprite.Group()   
+    asteroidfield = pygame.sprite.Group()
+    shots = pygame.sprite.Group() 
 
     # Add static field to class
-    Player.containers = (updatable, drawable)
-    Asteroid.containers = (asteroids, updatable, drawable)
-    AsteroidField.containers = (asteroidfield, updatable)
+    Player.containers = (updateable, drawable)
+    Asteroid.containers = (asteroids, updateable, drawable)
+    AsteroidField.containers = (asteroidfield, updateable)
+    # add Shot class to shots, updateable, and drawable groups
+    Shot.containers = (shots, updateable, drawable)
 
     # Create objects after creating static field to inherit changes
     player = Player(x, y)
@@ -46,7 +50,7 @@ def main():
         for draw in drawable:
             draw.draw(screen)
 
-        for update in updatable:
+        for update in updateable:
             update.update(dt)
 
         # check if the player hits an asteroid
@@ -56,9 +60,6 @@ def main():
                 sys.exit()
 
         pygame.display.flip()
-
-
-
 
 # ensures the main() function is only called when this file is run directly
 # won't run as a package
