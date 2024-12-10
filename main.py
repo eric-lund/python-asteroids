@@ -59,6 +59,12 @@ def main():
                 print("Game over!")
                 sys.exit()
 
+            for shot in shots:
+                if shot.collision(asteroid):
+                    # kill() is part of pygame removing objects from groups
+                    shot.kill()
+                    asteroid.kill()
+
         pygame.display.flip()
 
 # ensures the main() function is only called when this file is run directly
