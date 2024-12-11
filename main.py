@@ -63,7 +63,8 @@ def main():
                 if shot.collision(asteroid):
                     # kill() is part of pygame removing objects from groups
                     shot.kill()
-                    asteroid.kill()
+                    # call split() to divide larger asteroids
+                    asteroid.split()
 
         pygame.display.flip()
 
